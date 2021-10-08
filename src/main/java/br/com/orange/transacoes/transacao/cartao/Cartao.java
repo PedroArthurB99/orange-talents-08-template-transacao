@@ -10,8 +10,8 @@ import java.util.UUID;
 public class Cartao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID codigo;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long codigo;
 
     private String numero;
 
@@ -25,7 +25,7 @@ public class Cartao {
         this.email = email;
     }
 
-    public UUID getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 

@@ -10,8 +10,8 @@ import java.util.UUID;
 public class Estabelecimento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nome;
 
@@ -28,7 +28,7 @@ public class Estabelecimento {
         this.endereco = endereco;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 

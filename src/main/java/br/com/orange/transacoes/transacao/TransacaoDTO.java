@@ -3,46 +3,29 @@ package br.com.orange.transacoes.transacao;
 import br.com.orange.transacoes.transacao.cartao.Cartao;
 import br.com.orange.transacoes.transacao.estabelecimento.Estabelecimento;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-@Entity
-public class Transacao {
+public class TransacaoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String numero;
-
     private Double valor;
-
-    @ManyToOne(cascade = CascadeType.ALL)
     private Estabelecimento estabelecimento;
-
-    @ManyToOne(cascade = CascadeType.ALL)
     private Cartao cartao;
-
     private LocalDateTime efetivadaEm;
 
-    @Deprecated
-    public Transacao() {}
-
-    public Transacao(String numero, Double valor, Estabelecimento estabelecimento, Cartao cartao, LocalDateTime efetivadaEm) {
-        this.numero = numero;
-        this.valor = valor;
-        this.estabelecimento = estabelecimento;
-        this.cartao = cartao;
-        this.efetivadaEm = efetivadaEm;
+    public TransacaoDTO(Transacao transacao) {
+        this.id = transacao.getId();
+        this.valor = transacao.getValor();
+        this.estabelecimento = transacao.getEstabelecimento();
+        this.cartao = transacao.getCartao();
+        this.efetivadaEm = transacao.getEfetivadaEm();
     }
 
     public Long getId() {
         return id;
-    }
-
-    public String getNumero() {
-        return numero;
     }
 
     public Double getValor() {
@@ -59,5 +42,13 @@ public class Transacao {
 
     public LocalDateTime getEfetivadaEm() {
         return efetivadaEm;
+    }
+
+    public static List<TransacaoDTO> toList(List<Transacao> transacoes) {
+        List<TransacaoDTO> transacoesDto = new ArrayList<>();
+        transacoes.forEach(transacao -> {
+            transacoesDto.add(new TransacaoDTO(transacao));
+        });
+        return transacoesDto;
     }
 }
